@@ -86,3 +86,5 @@ if selected_pokemon:
     # Plotting
     fig = px.scatter(df, x='height', y='weight', text='name', title='Height vs Weight of your Pokemon compared to Others')
     st.plotly_chart(fig)
+
+    # and more graphics
