@@ -20,24 +20,26 @@ def get_pokemon_data(pokemon_number):
         'cry_url': f"https://pokemoncries.com/cries/{pokemon_number}.mp3"  # URL for the Pokemon sound
     }
 
-# Display a grid of Pokémon images
-num_pokemon = 30  # Adjust this number based on the total number of Pokémon you want to display
-columns = 5  # Number of columns for the image grid
+# Display a grid of Pokémon images in the sidebar
+num_pokemon = 100  # Adjust this number based on the total number of Pokémon you want to display
+columns = 2  # Number of columns for the image grid in the sidebar
 selected_pokemon = None
 
-st.markdown("### Click on a Pokémon image to see its details")
+st.sidebar.markdown("### Click on a Pokémon image to see its details")
 
-# Fetch and display Pokémon images in a grid
+# Fetch and display Pokémon images in the sidebar grid
 for i in range(1, num_pokemon + 1, columns):
-    cols = st.columns(columns)
+    cols = st.sidebar.columns(columns)
     for j in range(columns):
         if i + j <= num_pokemon:
             data = get_pokemon_data(i + j)
             with cols[j]:
-                if st.button(f"{data['name']}", key=f"btn_{i+j}"):
+                if st.button("", key=f"btn_{i+j}"):
                     selected_pokemon = i + j
                 st.image(data['image_url'], use_column_width=True)
-# Check if a Pokémon was selected and display its details
+                st.caption(data['name'])
+
+# Check if a Pokémon was selected and display its details in the main area
 if selected_pokemon:
     data = get_pokemon_data(selected_pokemon)
     st.title(data['name'])
