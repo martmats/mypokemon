@@ -4,10 +4,17 @@ import requests
 import random
 import plotly.express as px
 
-# Set the title of the Streamlit app
-st.title('Welcome to the Pokemon World!🧐')
-st.markdown('## Choose your Pokemon!')
-st.markdown('### Just choose your favourite Pokemon from the side and all the info will appear here⬇️')
+st.title('Welcome, Pokémon Adventurer!🧭')
+
+# Welcome message and instructions
+st.markdown("""
+    ## Discover the amazing world of Pokémon! 
+    Use the sidebar to choose your favourite Pokémon and explore detailed information about it. 
+    You'll find its height, weight, types, abilities, and even hear its unique cry! 
+    Compare your chosen Pokémon with a random selection of other Pokémon in terms of height and weight.
+    Enjoy your adventure! 
+    ### ⬅️ Choose your favourite Pokémon in the sidebar to get started!
+""")
 
 # Function to fetch Pokémon data (typical ones + sound + abilities and type)
 def get_pokemon_data(pokemon_number):
@@ -72,7 +79,7 @@ if selected_pokemon:
         'height': data['height'],
         'weight': data['weight']
     })
-    
+    st.markdown('# Discover curious facts!🧐')
     # Convert data to a DataFrame
     df = pd.DataFrame(random_pokemon_data)
 
@@ -81,6 +88,6 @@ if selected_pokemon:
     st.plotly_chart(fig)
 
 
-st.markdown('# In the meantime, discover curious facts!')
+
 
 
