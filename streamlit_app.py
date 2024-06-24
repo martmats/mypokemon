@@ -1,3 +1,11 @@
+import streamlit as st
+import pandas as pd
+import requests
+import random
+
+# Set the title of the Streamlit app
+st.title('Choose your Pokemon!🧐 ')
+
 # Function to fetch Pokémon data (typical ones + sound + abilites and type)
 def get_pokemon_data(pokemon_number):
     pokemon_url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_number}"
@@ -17,4 +25,16 @@ num_pokemon = 20  # I can adjust the number of pokemon to display (there are lik
 columns = 10  # Number of columns for the images
 selected_pokemon = None
 
-st.write("### Click on a Pokémon image to see its details")
+st.markdown("### Click on a Pokémon image to see its details")
+
+# Fetch and display Pokémon images inside the columns
+for i in range(1, num_pokemon + 1, columns):
+    cols = st.columns(columns)
+    for j in range(columns):
+        if i + j <= num_pokemon:
+            data = get_pokemon_data(i + j)
+            with cols[j]:
+                if st.button("", key=f"btn_{i+j}"):
+                    selected_pokemon = i + j
+                st.image(data['image_url'], use_column_width=True)
+                st.caption(data['name'])
