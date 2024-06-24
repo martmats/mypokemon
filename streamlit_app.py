@@ -2,9 +2,10 @@ import streamlit as st
 import pandas as pd
 import requests
 import random
+import plotly.express as px
 
 # Set the title of the Streamlit app
-st.title('Welcome to the Pokemon Wold!🧐')
+st.title('Welcome to the Pokemon World!🧐')
 st.markdown('## Choose your Pokemon!')
 st.markdown('### Just choose your favourite Pokemon from the side and all the info will appear here⬇️')
 
@@ -36,10 +37,9 @@ def get_random_pokemon_data(num_pokemon=10):
     return random_pokemon_data
 
 # Display a grid of Pokémon images in the sidebar
-num_pokemon = 50 # Adjust this number based on the total number of Pokémon you want to display
+num_pokemon = 50  # Adjust this number based on the total number of Pokémon you want to display
 columns = 3  # Number of columns for the image grid in the sidebar
 selected_pokemon = None
-
 
 st.sidebar.markdown("### Click on your favourite Pokémon name to see its details")
 
@@ -65,42 +65,22 @@ if selected_pokemon:
     st.write(f"Types: {', '.join(data['types'])}")
     st.write(f"Abilities: {', '.join(data['abilities'])}")
 
+   # Get random Pokémon data for comparison
+    random_pokemon_data = get_random_pokemon_data(num_pokemon=10)
+    random_pokemon_data.append({
+        'name': data['name'],
+        'height': data['height'],
+        'weight': data['weight']
+    })
+    
+    # Convert data to a DataFrame
+    df = pd.DataFrame(random_pokemon_data)
 
-st.markdown('# In the mean time discover curious facts!')
+    # Plotting
+    fig = px.scatter(df, x='height', y='weight', text='name', title='Height vs Weight of Selected and Random Pokémon')
+    st.plotly_chart(fig)
 
-# Function to get random Pokémon data for comparison
-def get_random_pokemon_data(num_pokemon=10):
-    random_pokemon_data = []
-    for _ in range(num_pokemon):
-        random_number = random.randint(1, 155)
-        url = f"https://pokeapi.co/api/v2/pokemon/{random_number}"
-        response = requests.get(url).json()
-        name = response['name'].title()
-        height = response['height'] / 10  # convert to meters
-        weight = response['weight'] / 10  # convert to kilograms
-        random_pokemon_data.append((name, height, weight))
-    return random_pokemon_data
 
-# Get data for a random selection of Pokémon
-random_pokemon_data = get_random_pokemon_data()
+st.markdown('# In the meantime, discover curious facts!')
 
-# Create a DataFrame for plotting
-df = pd.DataFrame(random_pokemon_data, columns=['Name', 'Height', 'Weight'])
 
-# Add the selected Pokémon to the DataFrame
-df = df.append({'Name': pokemon_name, 'Height': pokemon_height, 'Weight': pokemon_weight}, ignore_index=True)
-
-# Plot height vs. weight for the selected Pokémon and random Pokémon
-fig, ax = plt.subplots()
-ax.scatter(df['Height'], df['Weight'])
-
-# Annotate points with Pokémon names
-for i, row in df.iterrows():
-    ax.annotate(row['Name'], (row['Height'], row['Weight']))
-
-ax.set_xlabel('Height (meters)')
-ax.set_ylabel('Weight (kilograms)')
-ax.set_title('Height vs. Weight of Selected and Random Pokémon')
-
-# Display the plot
-st.pyplot(fig)
