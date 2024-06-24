@@ -21,8 +21,8 @@ def get_pokemon_data(pokemon_number):
     }
 
 # Display a grid of Pokémon images
-num_pokemon = 20  # Adjust this number based on the total number of Pokémon you want to display
-columns = 10  # Number of columns for the image grid
+num_pokemon = 30  # Adjust this number based on the total number of Pokémon you want to display
+columns = 5  # Number of columns for the image grid
 selected_pokemon = None
 
 st.markdown("### Click on a Pokémon image to see its details")
@@ -34,18 +34,9 @@ for i in range(1, num_pokemon + 1, columns):
         if i + j <= num_pokemon:
             data = get_pokemon_data(i + j)
             with cols[j]:
-                button_html = f"""
-                    <div style="text-align: center;">
-                        <button style="background:none;border:none;">
-                            <img src="{data['image_url']}" style="width: 100%;"><br>
-                            <span style="font-size: 1.2em;">⬇️</span>
-                        </button>
-                    </div>
-                """
-                if st.button("", key=f"btn_{i+j}"):
+                if st.button(f"{data['name']}", key=f"btn_{i+j}"):
                     selected_pokemon = i + j
-                st.markdown(button_html, unsafe_allow_html=True)
-                st.caption(data['name'])
+                st.image(data['image_url'], use_column_width=True)
 # Check if a Pokémon was selected and display its details
 if selected_pokemon:
     data = get_pokemon_data(selected_pokemon)
