@@ -84,10 +84,5 @@ if selected_pokemon:
     df = pd.DataFrame(random_pokemon_data)
 
     # Plotting
-    fig = px.scatter(df, x='height', y='weight', text='name', title='Height vs Weight of Selected and Random Pokémon')
-    st.plotly_chart(fig) 
-
-
-
-
-
+    fig = px.scatter(df, x='height', y='weight', text='name', title='Height vs Weight of your Pokemon compared to Others')
+    st.plotly_chart(fig)
