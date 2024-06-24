@@ -4,9 +4,9 @@ import requests
 import random
 
 # Set the title of the Streamlit app
-st.title('Choose your Pokemon!🧐 ')
+st.title('Choose your Pokemon!🧐')
 
-# Function to fetch Pokémon data (typical ones + sound + abilites and type)
+# Function to fetch Pokémon data (typical ones + sound + abilities and type)
 def get_pokemon_data(pokemon_number):
     pokemon_url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_number}"
     response = requests.get(pokemon_url).json()
@@ -21,20 +21,28 @@ def get_pokemon_data(pokemon_number):
     }
 
 # Display a grid of Pokémon images
-num_pokemon = 20  # I can adjust the number of pokemon to display (there are like 1000ish)
-columns = 10  # Number of columns for the images
+num_pokemon = 20  # Adjust this number based on the total number of Pokémon you want to display
+columns = 10  # Number of columns for the image grid
 selected_pokemon = None
 
 st.markdown("### Click on a Pokémon image to see its details")
 
-# Fetch and display Pokémon images inside the columns
+# Fetch and display Pokémon images in a grid
 for i in range(1, num_pokemon + 1, columns):
     cols = st.columns(columns)
     for j in range(columns):
         if i + j <= num_pokemon:
             data = get_pokemon_data(i + j)
             with cols[j]:
+                button_html = f"""
+                    <div style="text-align: center;">
+                        <button style="background:none;border:none;">
+                            <img src="{data['image_url']}" style="width: 100%;"><br>
+                            <span style="font-size: 1.2em;">⬇️</span>
+                        </button>
+                    </div>
+                """
                 if st.button("", key=f"btn_{i+j}"):
                     selected_pokemon = i + j
-                st.image(data['image_url'], use_column_width=True)
+                st.markdown(button_html, unsafe_allow_html=True)
                 st.caption(data['name'])
