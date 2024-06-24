@@ -46,3 +46,13 @@ for i in range(1, num_pokemon + 1, columns):
                     selected_pokemon = i + j
                 st.markdown(button_html, unsafe_allow_html=True)
                 st.caption(data['name'])
+# Check if a Pokémon was selected and display its details
+if selected_pokemon:
+    data = get_pokemon_data(selected_pokemon)
+    st.title(data['name'])
+    st.image(data['image_url'])
+    st.audio(data['cry_url'], format='audio/mp3')
+    st.write(f"Height: {data['height']} meters")
+    st.write(f"Weight: {data['weight']} kilograms")
+    st.write(f"Types: {', '.join(data['types'])}")
+    st.write(f"Abilities: {', '.join(data['abilities'])}")
