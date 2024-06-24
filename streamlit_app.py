@@ -21,9 +21,10 @@ def get_pokemon_data(pokemon_number):
     }
 
 # Display a grid of Pokémon images in the sidebar
-num_pokemon = 100  # Adjust this number based on the total number of Pokémon you want to display
+num_pokemon = 30 # Adjust this number based on the total number of Pokémon you want to display
 columns = 2  # Number of columns for the image grid in the sidebar
 selected_pokemon = None
+
 
 st.sidebar.markdown("### Click on a Pokémon image to see its details")
 
@@ -34,10 +35,9 @@ for i in range(1, num_pokemon + 1, columns):
         if i + j <= num_pokemon:
             data = get_pokemon_data(i + j)
             with cols[j]:
-                if st.button("", key=f"btn_{i+j}"):
-                    selected_pokemon = i + j
                 st.image(data['image_url'], use_column_width=True)
-                st.caption(data['name'])
+                if st.button(data['name'], key=f"btn_sidebar_{i+j}"):
+                    selected_pokemon = i + j
 
 # Check if a Pokémon was selected and display its details in the main area
 if selected_pokemon:
