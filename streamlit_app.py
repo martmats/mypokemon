@@ -4,8 +4,9 @@ import requests
 import random
 
 # Set the title of the Streamlit app
-st.title('Choose your Pokemon!🧐')
-
+st.title('Welcome to the Pokemon Wold!🧐')
+st.markdown('## Choose your Pokemon!')
+st.markdown('### Just choose your favourite Pokemon from the side and all the info will appear here⬇️')
 # Function to fetch Pokémon data (typical ones + sound + abilities and type)
 def get_pokemon_data(pokemon_number):
     pokemon_url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_number}"
@@ -21,12 +22,12 @@ def get_pokemon_data(pokemon_number):
     }
 
 # Display a grid of Pokémon images in the sidebar
-num_pokemon = 30 # Adjust this number based on the total number of Pokémon you want to display
-columns = 2  # Number of columns for the image grid in the sidebar
+num_pokemon = 50 # Adjust this number based on the total number of Pokémon you want to display
+columns = 3  # Number of columns for the image grid in the sidebar
 selected_pokemon = None
 
 
-st.sidebar.markdown("### Click on a Pokémon image to see its details")
+st.sidebar.markdown("### Click on your favourite Pokémon name to see its details")
 
 # Fetch and display Pokémon images in the sidebar grid
 for i in range(1, num_pokemon + 1, columns):
@@ -49,3 +50,6 @@ if selected_pokemon:
     st.write(f"Weight: {data['weight']} kilograms")
     st.write(f"Types: {', '.join(data['types'])}")
     st.write(f"Abilities: {', '.join(data['abilities'])}")
+
+
+st.markdown('# In the mean time discover curious facts!')
