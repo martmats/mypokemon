@@ -1,9 +1,9 @@
-# 📊 Data evaluation template
+# 🧭DISCOVER YOUR FAVOURITE POKEMON
 
-A simple Streamlit app showing how to evaluate and annotate data, using dataframes
-and charts. 
+Discover the amazing world of Pokémon!
+Use the sidebar to choose your favourite Pokémon and explore detailed information about it. You'll find its height, weight, types, abilities, and even hear its unique cry! Compare your chosen Pokémon with a random selection of other Pokémon in terms of height and weight. Enjoy your adventure! 
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://data-evaluation-template.streamlit.app/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://mypokemon-demm.streamlit.app/)
 
 ### How to run it on your own machine
 
