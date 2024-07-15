@@ -82,7 +82,7 @@ if selected_pokemon:
         st.write(f"Abilities: {', '.join(data['abilities'])}")
 
         # Get random Pokémon data for comparison
-        random_pokemon_data = get_random_pokemon_data(num_pokemon=10)
+        random_pokemon_data = get_random_pokemon_data(num_pokemon=5)
         random_pokemon_data.append({
             'name': data['name'],
             'height': data['height'],
