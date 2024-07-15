@@ -40,7 +40,7 @@ def get_pokemon_data(pokemon_number):
 def get_random_pokemon_data(num_pokemon=10):
     random_pokemon_data = []
     for _ in range(num_pokemon):
-        random_number = random.randint(1, 1100)  # Ensure the random number is within the range of available Pokémon
+        random_number = random.randint(1, 1025)  # Ensure the random number is within the range of available Pokémon
         data = get_pokemon_data(random_number)
         if data:
             random_pokemon_data.append({
